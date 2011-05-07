@@ -1,4 +1,6 @@
 #!/bin/sh
 set -x
-ln -sf .emacs ~/.emacs
-ln -sf etc ~/etc
+rm -f ~/.emacs
+ln  -sf `pwd`/.emacs ~/.emacs
+rm -rf ~/etc
+ln  -sf `pwd`/etc ~/etc
