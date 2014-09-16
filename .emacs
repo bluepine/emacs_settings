@@ -7,7 +7,7 @@
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
 
-(defvar required-packages '(save-visited-files xcscope pymacs fuzzy-match igrep ioccur json json-mode keywiz mic-paren mode-compile modeline-posn nhexl-mode nose popup python-mode rainbow-mode s scala-mode smex sml-mode symbols-mode todotxt typing vlf windsize  writegood-mode xlicense zen-and-art-theme)
+(defvar required-packages '(git-dwin git-gutter+ save-visited-files xcscope pymacs fuzzy-match igrep ioccur json json-mode keywiz mic-paren mode-compile modeline-posn nhexl-mode nose popup python-mode rainbow-mode s scala-mode smex sml-mode symbols-mode todotxt typing vlf windsize  writegood-mode xlicense zen-and-art-theme)
   "A list of packages to ensure are installed at launch.")
 					; method to check if all packages are installed
 (defun packages-installed-p ()
