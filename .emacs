@@ -1,7 +1,8 @@
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (require 'cl)
 (require 'package)
-(setq package-list (projectile-rails rake inflections inf-ruby f let-alist json-reformat json-snatcher git-commit-mode git-rebase-mode pkg-info epl android-mode ascii auctex auto-complete dired+ flycheck flymake-ruby flymake-easy fuzzy-match javadoc-help javap javascript json json-mode jtags jtags-extras keywiz lua-mode magit mic-paren mode-compile modeline-posn nhexl-mode nose popup projectile dash python-mode rainbow-mode s save-visited-files scala-mode smex sml-mode smooth-scrolling symbols-mode todotxt typing vlf windsize worklog writegood-mode wtf xlicense zen-and-art-theme))
+;zen-and-art-theme
+(setq package-list '(f dash projectile-rails rake inflections inf-ruby let-alist json-reformat json-snatcher git-commit-mode git-rebase-mode pkg-info epl android-mode ascii auctex auto-complete dired+ flycheck flymake-ruby flymake-easy fuzzy-match json json-mode keywiz lua-mode magit mic-paren mode-compile modeline-posn nhexl-mode nose popup projectile rainbow-mode s save-visited-files scala-mode smex sml-mode smooth-scrolling symbols-mode todotxt typing vlf windsize writegood-mode xlicense))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives
@@ -10,8 +11,8 @@
     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'load-path "~/.emacs.d/elpa")  ;; add elpa load paths
 (package-initialize) 
-; fetch the list of packages available 
-(unless package-archive-contents
+
+(when (not package-archive-contents)
   (package-refresh-contents))
 
 ; install the missing packages
@@ -19,37 +20,12 @@
   (unless (package-installed-p package)
     (package-install package)))
 
-(when (not package-archive-contents)
-  (package-refresh-contents))
 
 
 
 (require 'xcscope)
 (add-hook 'c-mode-hook (function cscope:hook))
 (add-hook 'c++-mode-hook (function cscope:hook))
-
-(defvar my-packages '(fuzzy-match javadoc-help json json-mode jtags jtags-extras keywiz mic-paren mode-compile modeline-posn nhexl-mode nose popup python-mode rainbow-mode s scala-mode smex sml-mode symbols-mode todotxt typing vlf windsize worklog writegood-mode wtf xlicense zen-and-art-theme)
-  "A list of packages to ensure are installed at launch.")
-					; method to check if all packages are installed
-(defun packages-installed-p ()
-  (loop for p in required-packages
-        when (not (package-installed-p p)) do (return nil)
-        finally (return t)))
-
-					; if not all packages are installed, check one by one and install the missing ones.
-(unless (packages-installed-p)
-					; check for new packages (package versions)
-  (message "%s" "Emacs is now refreshing its package database...")
-  (package-refresh-contents)
-  (message "%s" " done.")
-					; install the missing packages
-  (dolist (p required-packages)
-    (when (not (package-installed-p p))
-      (package-install p))))
-
-(dolist (p required-packages) (require p))
-
-
 (setq stack-trace-on-error t)
 (setq ecb-layout-name "song")
 (setq ecb-tip-of-the-day nil)
@@ -75,10 +51,6 @@
 			       (local-set-key [f3] 'next-error)
 			       (local-set-key [(meta /)] 'dabbrev-expand)
 			       ))
-
-(require 'save-visited-files)
-(turn-on-save-visited-files-mode)
-
 
 ;; (define-key global-map [(ctrl f3)] 'cscope-set-initial-directory)
 ;; (define-key global-map [(ctrl f4)] 'cscope-unset-initial-directory)
@@ -123,3 +95,6 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 (tool-bar-mode -1)
 
+
+(require 'save-visited-files)
+(turn-on-save-visited-files-mode)
