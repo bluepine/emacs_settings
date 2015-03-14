@@ -1,5 +1,4 @@
-(setq debug-on-error 't)
-(tool-bar-mode -1)
+;(setq debug-on-error 't)
 (require 'package)
 (add-to-list 'package-archives
              '("elpa" . "http://tromey.com/elpa/"))
@@ -44,3 +43,4 @@
 (define-key global-map [(ctrl f12)] 'cscope-prev-file)
 (define-key global-map [(meta f9)] 'cscope-display-buffer)
 (define-key global-map [(meta f10)] 'cscope-display-buffer-toggle) 
+(tool-bar-mode -1)
