@@ -3,7 +3,7 @@
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (require 'cl)
 (require 'package)
-(setq package-list '(f dash projectile-rails rake inflections inf-ruby let-alist json-reformat json-snatcher git-commit-mode git-rebase-mode pkg-info epl android-mode ascii auctex auto-complete dired+ flycheck flymake-ruby flymake-easy fuzzy-match json json-mode keywiz lua-mode magit mic-paren mode-compile modeline-posn nhexl-mode nose popup projectile rainbow-mode s save-visited-files scala-mode smex sml-mode smooth-scrolling symbols-mode todotxt typing vlf windsize writegood-mode xlicense flx-ido enh-ruby-mode ag smartparens grizzl robe project-explorer js2-mode textmate))
+(setq package-list '(f dash projectile-rails rake inflections inf-ruby let-alist json-reformat json-snatcher git-commit-mode git-rebase-mode pkg-info epl android-mode ascii auctex auto-complete dired+ flycheck flymake-ruby flymake-easy fuzzy-match json json-mode keywiz lua-mode magit mic-paren mode-compile modeline-posn nhexl-mode nose popup projectile rainbow-mode s save-visited-files scala-mode smex sml-mode smooth-scrolling symbols-mode todotxt typing vlf windsize writegood-mode xlicense flx-ido enh-ruby-mode ag smartparens grizzl robe project-explorer js2-mode textmate cider))
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
