@@ -3,7 +3,7 @@
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (require 'cl)
 (require 'package)
-(setq package-list '(f dash projectile-rails rake inflections inf-ruby let-alist json-reformat json-snatcher git-commit-mode git-rebase-mode pkg-info epl android-mode ascii auctex auto-complete dired+ flycheck flymake-ruby flymake-easy fuzzy-match json json-mode keywiz lua-mode magit mic-paren mode-compile modeline-posn nhexl-mode nose popup projectile rainbow-mode s save-visited-files scala-mode smex sml-mode smooth-scrolling symbols-mode todotxt typing vlf windsize writegood-mode xlicense flx-ido enh-ruby-mode ag smartparens grizzl robe project-explorer js2-mode textmate cider))
+(setq package-list '(f dash projectile-rails rake inflections inf-ruby let-alist json-reformat json-snatcher git-commit-mode git-rebase-mode pkg-info epl android-mode ascii auctex auto-complete dired+ flycheck flymake-ruby flymake-easy fuzzy-match json json-mode keywiz lua-mode magit mic-paren mode-compile modeline-posn nhexl-mode nose popup projectile rainbow-mode s save-visited-files scala-mode smex sml-mode smooth-scrolling symbols-mode todotxt typing vlf windsize writegood-mode xlicense flx-ido enh-ruby-mode ag smartparens grizzl robe project-explorer js2-mode textmate cider js-comint))
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
@@ -91,6 +91,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;javascript
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(setq inferior-js-mode-hook
+      (lambda ()
+        ;; We like nice colors
+        (ansi-color-for-comint-mode-on)
+        ;; Deal with some prompt nonsense
+        ;; (add-to-list
+        ;;  'comint-preoutput-filter-functions
+        ;;  (lambda (output)
+        ;;    (replace-regexp-in-string "\033\\[[0-9]+[GK]" "" output)))
+	))
+(setenv "NODE_NO_READLINE" "1")
+(setq inferior-js-program-command "node --interactive")
 ;; (global-set-key [f5] 'slime-js-reload)
 ;; (add-hook 'js2-mode-hook
 ;;           (lambda ()
@@ -103,7 +115,8 @@
 ;;;;;;;;;;;;;;;;;;final
 
 
-
 (tool-bar-mode -1)
 (require 'save-visited-files)
 (turn-on-save-visited-files-mode)
+
+
