@@ -44,6 +44,7 @@ values."
      emacs-lisp
      git
      markdown
+     scala
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -301,7 +302,7 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (require 'nodejs-repl)
+  (global-undo-tree-mode 1)
   (setq compilation-error-regexp-alist-alist
         (cons '(node "^[  ]+at \\(?:[^\(\n]+ \(\\)?\\([a-zA-Z\.0-9_/-]+\\):\\([0-9]+\\):\\([0-9]+\\)\)?$"
                      1 ;; file
