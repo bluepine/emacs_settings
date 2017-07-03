@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     yaml
      go
      graphviz
      haskell
@@ -319,6 +320,7 @@ you should place your code here."
               compilation-error-regexp-alist-alist))
   (setq compilation-error-regexp-alist
         (cons 'node compilation-error-regexp-alist))
+  (display-time-mode 1)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
