@@ -1,123 +1,107 @@
-;;;;;;;;;;;;;;;;;;;;package
-;slime
-(add-to-list 'load-path "~/.emacs.d/lisp")
-(require 'cl)
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+ '(custom-safe-themes
+   (quote
+    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+ '(package-selected-packages
+   (quote
+    (xref-js2 color-theme-sanityinc-tomorrow company-tern elpy rjsx-mode z3-mode racket-mode web-beautify web-mode flycheck zen-and-art-theme xlicense xcscope writegood-mode vlf typing todotxt symbols-mode sml-mode save-visited-files rainbow-mode python-pylint nose nhexl-mode modeline-posn mode-compile mic-paren magit keywiz json-mode json ioccur igrep git fuzzy-match auto-complete))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 (require 'package)
-(setq package-list '(f dash projectile-rails rake inflections inf-ruby let-alist json-reformat json-snatcher git-commit-mode git-rebase-mode pkg-info epl android-mode ascii auctex auto-complete dired+ flycheck flymake-ruby flymake-easy fuzzy-match json json-mode keywiz lua-mode magit mic-paren mode-compile modeline-posn nhexl-mode nose popup projectile rainbow-mode s save-visited-files scala-mode smex sml-mode smooth-scrolling symbols-mode todotxt typing vlf windsize writegood-mode xlicense flx-ido enh-ruby-mode ag smartparens grizzl robe project-explorer js2-mode textmate js-comint clojure-mode clj-refactor align-cljlet paredit company clojure-snippets))
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'load-path "~/.emacs.d/elpa")  ;; add elpa load paths
-(package-initialize) 
+             '("melpa" . "https://melpa.org/packages/"))
 
-(when (not package-archive-contents)
-  (package-refresh-contents))
+(setq column-number-mode t)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
 
-					; install the missing packages
-(dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-install package)))
+(add-hook 'rjsx-mode-hook
+          (lambda ()
+            (setq indent-tabs-mode nil) ;;Use space instead of tab
+            (setq js-indent-level 2) ;;space width is 2 (default is 4)
+            (setq js2-strict-missing-semi-warning nil))) ;;disable the semicolon warning
 
-;;;;;;;;;;;;;;;;general
-(require 'auto-complete-config)
-(ac-config-default)
-(define-key global-map [(ctrl f5)] 'compile)
-(define-key global-map [(ctrl r)] 'replace-string)
+(require 'company)
+(require 'company-tern)
 
-;;;;;;;;;;;;;;;;;;;;c and cpp
-(require 'xcscope)
-(add-hook 'c-mode-hook (function cscope:hook))
-(add-hook 'c++-mode-hook (function cscope:hook))
-(linum-mode)
-(add-hook 'c-mode-hook '(lambda () 
-			  (flycheck-mode) 
-			  (semantic-mode) 
-			  (local-set-key [f2] 'previous-error)
-			  (local-set-key [f3] 'next-error)
-			  (local-set-key [(meta /)] 'dabbrev-expand)))
-;; (define-key global-map [(ctrl f3)] 'cscope-set-initial-directory)
-;; (define-key global-map [(ctrl f4)] 'cscope-unset-initial-directory)
-;; (define-key global-map [(ctrl f5)] 'cscope-find-this-symbol)
-;; (define-key global-map [(ctrl f6)] 'cscope-find-global-definition)
-;; (define-key global-map [(ctrl f7)] 'cscope-find-global-definition-no-prompting)
-;; (define-key global-map [(ctrl f8)] 'cscope-pop-mark)
-;; (define-key global-map [(ctrl f9)] 'cscope-next-symbol)
-;; (define-key global-map [(ctrl f10)] 'cscope-next-file)
-;; (define-key global-map [(ctrl f11)] 'cscope-prev-symbol)
-;; (define-key global-map [(ctrl f12)] 'cscope-prev-file)
-;; (define-key global-map [(meta f9)] 'cscope-display-buffer)
-;; (define-key global-map [(meta f10)] 'cscope-display-buffer-toggle) 
-					;(define-key ropemacs-local-keymap [(meta /)] 'dabbrev-expand)
-;;			  ))
+(add-to-list 'company-backends 'company-tern)
+(add-hook 'rjsx-mode-hook (lambda ()
+                           (tern-mode)
+                           (company-mode)))
+                           
+;; Disable completion keybindings, as we use xref-js2 instead
+(define-key tern-mode-keymap (kbd "M-.") nil)
+(define-key tern-mode-keymap (kbd "M-,") nil)
 
-;;;;;;;;;;;;;;;;;;;python
-;; (require 'pymacs)
-;; (pymacs-load "ropemacs" "rope-")
-;; (add-hook 'python-mode-hook '(lambda () 
-;; 			       (flycheck-mode) 
-;; ;			       (semantic-mode) 
-;; 			       (setq flycheck-checker 'python-pyflakes)
-;; 			       (local-set-key [f2] 'previous-error)
-;; 			       (local-set-key [f3] 'next-error)
-;; 			       (local-set-key [(meta /)] 'dabbrev-expand)
-;; 			       ))
+(require 'flycheck)
+;; use local eslint from node_modules before global
+;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+(defun my/use-eslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                        root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
+(add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
 
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+	  '(javascript-jshint)))
 
-;;;;;;;;;;;;;;;;;;;;;ruby
-(require 'flymake-ruby)
-(add-hook 'ruby-mode-hook 'flymake-ruby-load)
-(setq ruby-deep-indent-paren nil)
-(add-hook 'ruby-mode-hook 'projectile-on)
-;; Display ido results vertically, rather than horizontally
-(setq ido-decorations (quote ("\n-> " "" "\n   " "\n   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
-(defun ido-disable-line-truncation () (set (make-local-variable 'truncate-lines) nil))
-(add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-truncation)
-(defun ido-define-keys () ;; C-n/p is more intuitive in vertical layout
-  (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
-  (define-key ido-completion-map (kbd "C-p") 'ido-prev-match))
-(add-hook 'ido-setup-hook 'ido-define-keys)
-(add-hook 'projectile-mode-hook 'projectile-rails-on)
-(projectile-global-mode)
-(setq projectile-enable-caching t)
-(setq projectile-completion-system 'grizzl)
-;; Press Command-p for fuzzy find in project
-(global-set-key (kbd "s-p") 'projectile-find-file)
-;; Press Command-b for fuzzy switch buffer
-(global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
+(flycheck-add-mode 'javascript-eslint 'rjsx-mode)
+(flycheck-add-mode 'javascript-eslint 'javascript-mode)
+
+(setq-default flycheck-temp-prefix ".flycheck")
+
+(desktop-save-mode 1)
+
+(autoload 'color-theme-approximate-on "color-theme-approximate")
+(color-theme-approximate-on)
+
+(require 'compile)
+(setq compilation-error-regexp-alist-alist
+      (cons '(node "^[  ]+at \\(?:[^\(\n]+ \(\\)?\\([a-zA-Z\.0-9_/-]+\\):\\([0-9]+\\):\\([0-9]+\\)\)?$"
+                         1 ;; file
+                         2 ;; line
+                         3 ;; column
+                         )
+            compilation-error-regexp-alist-alist))
+(setq compilation-error-regexp-alist
+      (cons 'node compilation-error-regexp-alist))
 
 
+(elpy-enable)
 
-;;;;;;;;;;;;;;;;;;;;;;;javascript
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(setq inferior-js-mode-hook
+(setq shell-mode-hook
       (lambda ()
         ;; We like nice colors
         (ansi-color-for-comint-mode-on)
         ;; Deal with some prompt nonsense
-        ;; (add-to-list
-        ;;  'comint-preoutput-filter-functions
-        ;;  (lambda (output)
-        ;;    (replace-regexp-in-string "\033\\[[0-9]+[GK]" "" output)))
-	))
-(setenv "NODE_NO_READLINE" "1")
-(setq inferior-js-program-command "node --interactive")
-;; (global-set-key [f5] 'slime-js-reload)
-;; (add-hook 'js2-mode-hook
-;;           (lambda ()
-;;             (slime-js-minor-mode 1)))
-;; (add-hook 'css-mode-hook
-;;           (lambda ()
-;;             (define-key css-mode-map "\M-\C-x" 'slime-js-refresh-css)
-;;             (define-key css-mode-map "\C-c\C-r" 'slime-js-embed-css)))
+        (add-to-list
+         'comint-preoutput-filter-functions
+         (lambda (output)
+           (replace-regexp-in-string "\033\\[[0-9]+[GK]" "" output)))))
 
-;;;;;;;;;;;;;;;;;;final
+;(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+(display-time-mode 1)
+(delete-selection-mode 1)
 
-
-(tool-bar-mode -1)
-(require 'save-visited-files)
-(turn-on-save-visited-files-mode)
-
-;;clojure
-(load "clojure")
