@@ -28,7 +28,7 @@
  '(frame-background-mode (quote dark))
  '(package-selected-packages
    (quote
-    (projectile js2-highlight-vars js2-refactor company-tern xref-js2 color-theme-sanityinc-tomorrow elpy rjsx-mode z3-mode racket-mode web-beautify web-mode flycheck zen-and-art-theme xlicense xcscope writegood-mode vlf typing todotxt symbols-mode sml-mode save-visited-files rainbow-mode python-pylint nose nhexl-mode modeline-posn mode-compile mic-paren magit keywiz json-mode json ioccur igrep git fuzzy-match auto-complete)))
+    (markdown-mode typescript-mode projectile js2-highlight-vars js2-refactor company-tern xref-js2 color-theme-sanityinc-tomorrow elpy rjsx-mode z3-mode racket-mode web-beautify web-mode flycheck zen-and-art-theme xlicense xcscope writegood-mode vlf typing todotxt symbols-mode sml-mode save-visited-files rainbow-mode python-pylint nose nhexl-mode modeline-posn mode-compile mic-paren magit keywiz json-mode json ioccur igrep git fuzzy-match auto-complete)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -139,8 +139,8 @@
 (display-time-mode 1)
 (delete-selection-mode 1)
 
-(add-hook 'js2-mode-hook #'js2-refactor-mode)
-(add-hook 'js2-mode-hook #'js2-highlight-vars-mode)
+;(add-hook 'js2-mode-hook #'js2-refactor-mode)
+;(add-hook 'js2-mode-hook #'js2-highlight-vars-mode)
 (add-hook 'rjsx-mode-hook (lambda ()
 			    (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
 (tool-bar-mode -1)
@@ -182,3 +182,5 @@
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(add-hook 'typescript-mode-hook (lambda ()
+			    (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
