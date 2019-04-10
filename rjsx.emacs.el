@@ -1,3 +1,4 @@
+(display-time-mode 1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 ;; Added by Package.el.  This must come before configurations of
@@ -19,7 +20,7 @@
     ("59e82a683db7129c0142b4b5a35dbbeaf8e01a4b81588f8c163bd255b76f4d21" "bffb799032a7404b33e431e6a1c46dc0ca62f54fdd20744a35a57c3f78586646" "ba913d12adb68e9dadf1f43e6afa8e46c4822bb96a289d5bf1204344064f041e" default)))
  '(package-selected-packages
    (quote
-    (ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit))))
+    (js2-highlight-vars imenus imenu-list imenu-anywhere counsel-projectile counsel-css counsel-codesearch counsel ivy-explorer tide ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -40,3 +41,17 @@
 
 ;; (substitute-key-definition
 ;;            'js2-jump-to-definition 'projectile-ag rjsx-mode-map)
+;; (global-set-key (kbd "C-.") 'imenu-anywhere)
+(global-set-key (kbd "C-\\") 'imenu-list-minor-mode)
+(global-set-key (kbd "C-.") 'highlight-symbol-at-point)
+(global-set-key (kbd "C-,") 'unhighlight-regexp)
+
+(counsel-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
+;; enable this if you want `swiper' to use it
+;; (setq search-default-mode #'char-fold-to-regexp)
+(global-set-key "\C-s" 'swiper)
+(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "<f6>") 'ivy-resume)
