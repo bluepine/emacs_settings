@@ -45,6 +45,8 @@
 (global-set-key (kbd "C-\\") 'imenu-list-minor-mode)
 (global-set-key (kbd "C-.") 'highlight-symbol-at-point)
 (global-set-key (kbd "C-,") 'unhighlight-regexp)
+(global-set-key (kbd "C-r") 'replace-string)
+(global-set-key (kbd "C-;") 'comment-region)
 
 (counsel-mode 1)
 (setq ivy-use-virtual-buffers t)
