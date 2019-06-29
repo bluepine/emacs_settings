@@ -28,7 +28,16 @@
  ;; If there is more than one, they won't work right.
  )
 
-(load-theme 'alect-black t)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+
+; install the missing packages
+(dolist (package package-selected-packages)
+  (unless (package-installed-p package)
+    (package-install package)))
+
+;(load-theme 'alect-black t)
 
 ;; (require 'projectile-codesearch)
 ;; (global-set-key "\M-." 'projectile-codesearch-search)
