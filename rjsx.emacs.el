@@ -18,9 +18,10 @@
  '(custom-safe-themes
    (quote
     ("59e82a683db7129c0142b4b5a35dbbeaf8e01a4b81588f8c163bd255b76f4d21" "bffb799032a7404b33e431e6a1c46dc0ca62f54fdd20744a35a57c3f78586646" "ba913d12adb68e9dadf1f43e6afa8e46c4822bb96a289d5bf1204344064f041e" default)))
+ '(markdown-command "/home/song/dlconda3/envs/tensorflow/bin/pandoc")
  '(package-selected-packages
    (quote
-    (js2-highlight-vars imenus imenu-list imenu-anywhere counsel-projectile counsel-css counsel-codesearch counsel ivy-explorer tide ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit))))
+    (julia-mode markdown-mode jupyter js2-highlight-vars imenus imenu-list imenu-anywhere counsel-projectile counsel-css counsel-codesearch counsel ivy-explorer tide ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -37,16 +38,18 @@
   (unless (package-installed-p package)
     (package-install package)))
 
-;(load-theme 'alect-black t)
+(load-theme 'alect-black t)
 
 ;; (require 'projectile-codesearch)
 ;; (global-set-key "\M-." 'projectile-codesearch-search)
 (require 'rjsx-mode)
+(require 'julia-mode)
 (require 'projectile)
 (require 'ag)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
 ;; (global-set-key "\M-." 'projectile-ag)
 (define-key rjsx-mode-map (kbd "M-.") 'projectile-ag)
+(define-key julia-mode-map (kbd "M-.") 'projectile-ag)
 
 ;; (substitute-key-definition
 ;;            'js2-jump-to-definition 'projectile-ag rjsx-mode-map)
@@ -66,3 +69,5 @@
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "<f6>") 'ivy-resume)
+
+
