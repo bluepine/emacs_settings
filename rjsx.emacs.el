@@ -89,3 +89,4 @@
 (require 'pyim-cangjie5dict)
 (pyim-cangjie5-enable)
 (pyim-isearch-mode 1)
+(setq default-input-method "pyim")
