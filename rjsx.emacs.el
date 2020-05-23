@@ -21,7 +21,7 @@
  '(markdown-command "/home/song/dlconda3/envs/tensorflow/bin/pandoc")
  '(package-selected-packages
    (quote
-    (julia-mode markdown-mode jupyter js2-highlight-vars imenus imenu-list imenu-anywhere counsel-projectile counsel-css counsel-codesearch counsel ivy-explorer tide ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit))))
+    (pyim-cangjie5dict pyim pdf-tools julia-mode markdown-mode jupyter js2-highlight-vars imenus imenu-list imenu-anywhere counsel-projectile counsel-css counsel-codesearch counsel ivy-explorer tide ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -33,7 +33,7 @@
   (package-refresh-contents))
 
 
-; install the missing packages
+					; install the missing packages
 (dolist (package package-selected-packages)
   (unless (package-installed-p package)
     (package-install package)))
@@ -63,6 +63,7 @@
 (counsel-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
+(setq js2-strict-missing-semi-warning nil)
 ;; enable this if you want `swiper' to use it
 ;; (setq search-default-mode #'char-fold-to-regexp)
 (global-set-key "\C-s" 'swiper)
@@ -71,3 +72,20 @@
 (global-set-key (kbd "<f6>") 'ivy-resume)
 
 
+(setq compilation-error-regexp-alist-alist
+      (cons '(node "^[  ]+at \\(?:[^\(\n]+ \(\\)?\\([a-zA-Z\.0-9_/-]+\\):\\([0-9]+\\):\\([0-9]+\\)\)?$"
+		   1 ;; file
+		   2 ;; line
+		   3 ;; column
+		   )
+            compilation-error-regexp-alist-alist))
+
+(setq compilation-error-regexp-alist
+      (cons 'node compilation-error-regexp-alist))
+
+(require 'pyim)
+(require 'pyim-basedict) ; 拼音词库设置，五笔用户 *不需要* 此行设置
+(pyim-basedict-enable)   ; 拼音词库，五笔用户 *不需要* 此行设置
+(require 'pyim-cangjie5dict)
+(pyim-cangjie5-enable)
+(pyim-isearch-mode 1)
