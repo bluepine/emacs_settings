@@ -10,7 +10,7 @@
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
-;(package-refresh-contents)
+					;(package-refresh-contents)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -72,7 +72,7 @@ static char *gnus-pointer[] = {
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (pyim-cangjie5dict pyim julia-mode markdown-mode jupyter js2-highlight-vars imenus imenu-list imenu-anywhere counsel-projectile counsel-css counsel-codesearch counsel ivy-explorer tide ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit)))
+    (xcscope pyim-cangjie5dict pyim julia-mode markdown-mode jupyter js2-highlight-vars imenus imenu-list imenu-anywhere counsel-projectile counsel-css counsel-codesearch counsel ivy-explorer tide ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit)))
  '(tool-bar-mode nil))
 
 (custom-set-faces
@@ -103,6 +103,14 @@ static char *gnus-pointer[] = {
 ;; (global-set-key "\M-." 'projectile-ag)
 (define-key rjsx-mode-map (kbd "M-.") 'projectile-ag)
 (define-key julia-mode-map (kbd "M-.") 'projectile-ag)
+(define-key typescript-mode-map (kbd "M-.") 'projectile-ag)
+(define-key java-mode-map (kbd "M-.") 'projectile-ag)
+(define-key objc-mode-map (kbd "M-.") 'cscope-find-this-symbol)
+
+(define-key rjsx-mode-map (kbd "C-M-.") 'lgrep)
+(define-key julia-mode-map (kbd "C-M-.") 'lgrep)
+(define-key typescript-mode-map (kbd "C-M-.") 'lgrep)
+(define-key java-mode-map (kbd "C-M-.") 'lgrep)
 
 ;; (substitute-key-definition
 ;;            'js2-jump-to-definition 'projectile-ag rjsx-mode-map)
@@ -145,3 +153,9 @@ static char *gnus-pointer[] = {
 (setq default-input-method "pyim")
 (setq ring-bell-function 'ignore)
 (set-frame-font "Hack 18" nil t)
+(add-to-list 'magic-mode-alist
+	     `(,(lambda ()
+		  (and (string= (file-name-extension buffer-file-name) "h")
+		       (re-search-forward "@\\<interface\\>" 
+					  magic-mode-regexp-match-limit t)))
+	       . objc-mode))
