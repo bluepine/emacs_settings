@@ -97,8 +97,11 @@ static char *gnus-pointer[] = {
 ;; (global-set-key "\M-." 'projectile-codesearch-search)
 (require 'rjsx-mode)
 (require 'julia-mode)
+(require 'typescript-mode)
+;(require 'objc-mode)
 (require 'projectile)
 (require 'ag)
+
 (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
 ;; (global-set-key "\M-." 'projectile-ag)
 (define-key rjsx-mode-map (kbd "M-.") 'projectile-ag)
