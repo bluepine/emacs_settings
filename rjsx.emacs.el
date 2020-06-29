@@ -72,7 +72,7 @@ static char *gnus-pointer[] = {
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (xcscope pyim-cangjie5dict pyim julia-mode markdown-mode jupyter js2-highlight-vars imenus imenu-list imenu-anywhere counsel-projectile counsel-css counsel-codesearch counsel ivy-explorer tide ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit)))
+    (csharp-mode xcscope pyim-cangjie5dict pyim julia-mode markdown-mode jupyter js2-highlight-vars imenus imenu-list imenu-anywhere counsel-projectile counsel-css counsel-codesearch counsel ivy-explorer tide ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit)))
  '(tool-bar-mode nil))
 
 (custom-set-faces
@@ -104,16 +104,10 @@ static char *gnus-pointer[] = {
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
 ;; (global-set-key "\M-." 'projectile-ag)
-(define-key rjsx-mode-map (kbd "M-.") 'projectile-ag)
-(define-key julia-mode-map (kbd "M-.") 'projectile-ag)
-(define-key typescript-mode-map (kbd "M-.") 'projectile-ag)
-(define-key java-mode-map (kbd "M-.") 'projectile-ag)
-(define-key objc-mode-map (kbd "M-.") 'cscope-find-this-symbol)
+(global-set-key (kbd "M-.") 'projectile-ag)
 
-(define-key rjsx-mode-map (kbd "C-M-.") 'lgrep)
-(define-key julia-mode-map (kbd "C-M-.") 'lgrep)
-(define-key typescript-mode-map (kbd "C-M-.") 'lgrep)
-(define-key java-mode-map (kbd "C-M-.") 'lgrep)
+(global-set-key (kbd "C-M-.") 'lgrep)
+
 
 ;; (substitute-key-definition
 ;;            'js2-jump-to-definition 'projectile-ag rjsx-mode-map)
