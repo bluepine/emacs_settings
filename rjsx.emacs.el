@@ -18,16 +18,19 @@
  '(custom-safe-themes
    (quote
     ("59e82a683db7129c0142b4b5a35dbbeaf8e01a4b81588f8c163bd255b76f4d21" "bffb799032a7404b33e431e6a1c46dc0ca62f54fdd20744a35a57c3f78586646" "ba913d12adb68e9dadf1f43e6afa8e46c4822bb96a289d5bf1204344064f041e" default)))
+ '(display-time-mode t)
  '(markdown-command "/home/song/dlconda3/envs/tensorflow/bin/pandoc")
+ '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (pyim-cangjie5dict pyim pdf-tools julia-mode markdown-mode jupyter js2-highlight-vars imenus imenu-list imenu-anywhere counsel-projectile counsel-css counsel-codesearch counsel ivy-explorer tide ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit))))
+    (pyim-cangjie5dict pyim pdf-tools julia-mode markdown-mode jupyter js2-highlight-vars imenus imenu-list imenu-anywhere counsel-projectile counsel-css counsel-codesearch counsel ivy-explorer tide ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit)))
+ '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "YaHei Consolas Hybrid" :foundry "MS  " :slant normal :weight normal :height 173 :width normal)))))
 
 (unless package-archive-contents
   (package-refresh-contents))
