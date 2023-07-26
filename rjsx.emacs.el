@@ -10,11 +10,14 @@
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
+					;(package-refresh-contents)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
  '(custom-safe-themes
    (quote
     ("59e82a683db7129c0142b4b5a35dbbeaf8e01a4b81588f8c163bd255b76f4d21" "bffb799032a7404b33e431e6a1c46dc0ca62f54fdd20744a35a57c3f78586646" "ba913d12adb68e9dadf1f43e6afa8e46c4822bb96a289d5bf1204344064f041e" default)))
@@ -23,8 +26,9 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (pyim-cangjie5dict pyim pdf-tools julia-mode markdown-mode jupyter js2-highlight-vars imenus imenu-list imenu-anywhere counsel-projectile counsel-css counsel-codesearch counsel ivy-explorer tide ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit)))
+    (csharp-mode xcscope pyim-cangjie5dict pyim julia-mode markdown-mode jupyter js2-highlight-vars imenus imenu-list imenu-anywhere counsel-projectile counsel-css counsel-codesearch counsel ivy-explorer tide ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit)))
  '(tool-bar-mode nil))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -47,12 +51,17 @@
 ;; (global-set-key "\M-." 'projectile-codesearch-search)
 (require 'rjsx-mode)
 (require 'julia-mode)
+(require 'typescript-mode)
+;(require 'objc-mode)
 (require 'projectile)
 (require 'ag)
+
 (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
 ;; (global-set-key "\M-." 'projectile-ag)
-(define-key rjsx-mode-map (kbd "M-.") 'projectile-ag)
-(define-key julia-mode-map (kbd "M-.") 'projectile-ag)
+(global-set-key (kbd "M-.") 'projectile-ag)
+
+(global-set-key (kbd "C-M-.") 'lgrep)
+
 
 ;; (substitute-key-definition
 ;;            'js2-jump-to-definition 'projectile-ag rjsx-mode-map)
@@ -93,3 +102,11 @@
 (pyim-cangjie5-enable)
 (pyim-isearch-mode 1)
 (setq default-input-method "pyim")
+(setq ring-bell-function 'ignore)
+(set-frame-font "Hack 18" nil t)
+(add-to-list 'magic-mode-alist
+	     `(,(lambda ()
+		  (and (string= (file-name-extension buffer-file-name) "h")
+		       (re-search-forward "@\\<interface\\>" 
+					  magic-mode-regexp-match-limit t)))
+	       . objc-mode))
