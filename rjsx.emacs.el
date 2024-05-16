@@ -26,7 +26,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (csharp-mode xcscope pyim-cangjie5dict pyim julia-mode markdown-mode jupyter js2-highlight-vars imenus imenu-list imenu-anywhere counsel-projectile counsel-css counsel-codesearch counsel ivy-explorer tide ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit)))
+    (csharp-mode xcscope julia-mode markdown-mode jupyter js2-highlight-vars imenus imenu-list imenu-anywhere counsel-projectile counsel-css counsel-codesearch counsel ivy-explorer tide ag projectile-codesearch codesearch projectile alect-themes cyberpunk-theme eink-theme constant-theme rjsx-mode magit)))
  '(tool-bar-mode nil))
 
 (custom-set-faces
@@ -51,7 +51,7 @@
 ;; (global-set-key "\M-." 'projectile-codesearch-search)
 (require 'rjsx-mode)
 (require 'julia-mode)
-(require 'typescript-mode)
+;(require 'typescript-mode)
 ;(require 'objc-mode)
 (require 'projectile)
 (require 'ag)
@@ -95,13 +95,6 @@
 (setq compilation-error-regexp-alist
       (cons 'node compilation-error-regexp-alist))
 
-(require 'pyim)
-(require 'pyim-basedict) ; 拼音词库设置，五笔用户 *不需要* 此行设置
-(pyim-basedict-enable)   ; 拼音词库，五笔用户 *不需要* 此行设置
-(require 'pyim-cangjie5dict)
-(pyim-cangjie5-enable)
-(pyim-isearch-mode 1)
-(setq default-input-method "pyim")
 (setq ring-bell-function 'ignore)
 (set-frame-font "Hack 18" nil t)
 (add-to-list 'magic-mode-alist
